@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+<body>
+  <h1>JEWEL JACKPOT</h1>
+  <div id ='game-info'>
+    <div>
+        <button onclick="startGame()">START</button>
+        <button onclick="stopFallingCrystals()">STOP</button>
+        <button onclick="resetGame()">RESET</button>
+    </div>
+    <div id="score-container">
+        SCORE: <span id='score'>0</span>
+    </div>
+  </div>
+  <div>
+    <p id="result"></p>
+  </div>
+  <br>
+  <canvas id='myCanvas' width='1200' height=500></canvas>
+  <script src="game.js"></script>
+</body>
+</html>
