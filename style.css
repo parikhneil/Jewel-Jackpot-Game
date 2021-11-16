@@ -19,7 +19,6 @@ button{
     align-items: center;
     width: 1200px;
     margin: auto;
-    border: 2px solid black;
 }
 body{
     height: 100vh;
@@ -29,6 +28,3 @@ body{
     padding:0;
 }
 
-#game-info div {
-    border: 2px solid black; 
-}

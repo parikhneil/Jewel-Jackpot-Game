@@ -11,11 +11,12 @@ bg.src = "bg.jpg";
 let character = new Image();
 character.onload = uploadCharacter;
 character.src = "character.png";
-
+let switchkey = true; 
 let characterX = 650;
 let characterY = 400; 
 let gems = [];
 let crystalsFall; 
+
 
 for (let i = 0; i < 6; i++) {
     gems[i] = new Object();
@@ -29,7 +30,9 @@ for (let i = 0; i < 6; i++) {
 }
 
 function startGame() {
+    switchkey = true; 
     document.getElementById("score-container").style.display = "inline-block";
+    document.getElementById("result").textContent = "";
     crystalsFall = setInterval(function() 
     {
         uploadBG();
@@ -56,8 +59,23 @@ function startGame() {
 
             uploadCrystal(gems[i]); 
         } 
-    }, 100)
+    }, 100)    
 }
+
+window.addEventListener("keydown", function(e) {
+    console.log(e.key);
+    if (switchkey == true) {
+        if (e.key == "ArrowRight") {
+            characterX += 10
+            uploadCharacter();
+        }
+    
+        else if (e.key == "ArrowLeft") {
+            characterX -= 10;
+            uploadCharacter();
+        }
+    } 
+})
 
 function randomNumber(min, max) {
     return min + Math.floor(Math.random() * (max - min));
@@ -81,8 +99,8 @@ function stopFallingCrystal() {
 }
 
 function pauseGame() {
+    switchkey = false;
     document.getElementById("start").textContent = "RESUME";
-
     clearInterval(crystalsFall);
 }
 
@@ -91,14 +109,17 @@ function resetGame() {
     score = 0;
     stopFallingCrystal();
     characterX = 400; 
-    characterY = 600;   
+    characterY = 400; 
     document.getElementById("score").textContent = score; 
     uploadBG();
-    for (let i = 0; i <= 6; i++) {
-        gems[i].y += randomNumber(5, 10);
-        uploadCrystal(gems[i]); 
-    } 
     uploadCharacter();
+    for (let i = 0; i < 6; i++) {
+        console.log(gems[i])
+        gems[i].x = randomNumber(50, 1150)
+        gems[i].y = randomNumber(0, 50);
+        uploadCrystal(gems[i]); 
+    }    
+    switchkey = false;    
 }
 
 function checkGround(gem) {
@@ -115,22 +136,10 @@ function checkGame() {
         // document.getElementById("score-container").style.display = "none";
         resetGame();
     }
-    else if (score >= 20) {
+    else if (score >= 10) {
         document.getElementById("result").textContent = "YOU WIN";
         // clearInterval(crystalsFall);
         resetGame();  
     }
 }
 
-window.addEventListener("keydown", function(e) {
-    console.log(e.key);
-    if (e.key == "ArrowRight") {
-        characterX += 10
-        uploadCharacter();
-    }
-
-    else if (e.key == "ArrowLeft") {
-        characterX -= 10;
-        uploadCharacter();
-    }
-})
